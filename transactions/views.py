@@ -15,6 +15,20 @@ from transactions.models import Transaction
 from django.http import HttpResponse
 from datetime import datetime
 from django.db.models import Sum
+from django.core.mail import EmailMessage, EmailMultiAlternatives
+from django.template.loader import render_to_string
+
+
+def send_transaction_email(
+    user, amount, subject, template, type=None, other_account=None
+):
+    message = render_to_string(
+        template,
+        {"user": user, "amount": amount, "type": type, "other_account": other_account},
+    )
+    send_email = EmailMultiAlternatives(subject, "", to=[user.email])
+    send_email.attach_alternative(message, "text/html")
+    send_email.send()
 
 
 class TransactionCreateMixin(LoginRequiredMixin, CreateView):
@@ -55,7 +69,12 @@ class DepositMoneyView(TransactionCreateMixin):
             self.request,
             f'{"{:,.2f}".format(float(amount))}$ was deposited to your account successfully',
         )
-
+        send_transaction_email(
+            self.request.user,
+            amount,
+            "Deposit Message",
+            "emails/deposit_email.html",
+        )
         return super().form_valid(form)
 
 
@@ -79,7 +98,12 @@ class WithdrawMoneyView(TransactionCreateMixin):
             self.request,
             f'Successfully withdrawn {"{:,.2f}".format(float(amount))}$ from your account',
         )
-
+        send_transaction_email(
+            self.request.user,
+            amount,
+            "Deposit Message",
+            "emails/withdraw_email.html",
+        )
         return super().form_valid(form)
 
 
@@ -102,7 +126,12 @@ class LoanRequestView(TransactionCreateMixin):
             self.request,
             f'Loan request for {"{:,.2f}".format(float(amount))}$ submitted successfully',
         )
-
+        send_transaction_email(
+            self.request.user,
+            amount,
+            "Loan Request Message",
+            "emails/loan_request_email.html",
+        )
         return super().form_valid(form)
 
 
@@ -181,6 +210,7 @@ class TransferMoneyView(TransactionCreateMixin):
         return initial
 
     def form_valid(self, form):
+
         reciever_acc = form.cleaned_data.get("receiver_account")
         amount = form.cleaned_data.get("amount")
 
@@ -194,5 +224,22 @@ class TransferMoneyView(TransactionCreateMixin):
         messages.success(
             self.request,
             f"{amount}$ successfully transferred to account no.{reciever.account_no}",
+        )
+        print(self.request.user, reciever.user)
+        send_transaction_email(
+            self.request.user,
+            amount,
+            "Transfer Money Message",
+            "emails/transfer_email.html",
+            "sender",
+            reciever.account_no,
+        )
+        send_transaction_email(
+            reciever.user,
+            amount,
+            "Transfer Money Message",
+            "emails/transfer_email.html",
+            "reciever",
+            self.request.user.account.account_no,
         )
         return super().form_valid(form)

@@ -3,7 +3,7 @@ from .models import Transaction
 from accounts.models import UserBankAccount
 from django.contrib import messages
 
-BANKRUPT = True
+BANKRUPT = False
 
 
 class TransactionForm(forms.ModelForm):

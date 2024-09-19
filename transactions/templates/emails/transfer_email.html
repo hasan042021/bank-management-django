@@ -1,0 +1,11 @@
+
+<h3>Hello {{user.first_name}} {{user.last_name}}</h3>
+{% if type == 'sender' %}
+<p>${{amount}}$ has been transfered from your account to  {{other_account}} successfully.</p>
+{% else %}
+<p>${{amount}}$ has been transfered to your account from  {{other_account}}successfully.</p>
+{% endif %}
+
+
+<p>Thanks for banking with us</p>
+<p>Mamar Bank</p>

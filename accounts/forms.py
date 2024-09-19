@@ -1,8 +1,11 @@
+from typing import Any
+from django.contrib.auth.base_user import AbstractBaseUser
 from django.contrib.auth.forms import UserCreationForm
 from django import forms
 from .contstants import GENDER_TYPE, ACCOUNT_TYPE
 from django.contrib.auth.models import User
 from .models import UserAddress, UserBankAccount
+from django.contrib.auth.forms import SetPasswordForm
 
 
 class UserRegistrationForm(UserCreationForm):
