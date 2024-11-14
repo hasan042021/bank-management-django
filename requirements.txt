@@ -15,7 +15,7 @@ MouseInfo
 pillow
 pipenv
 platformdirs
-psycopg2
+psycopg2-binary
 
 PyGetWindow
 PyMsgBox
