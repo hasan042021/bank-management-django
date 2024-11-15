@@ -18,7 +18,6 @@ class TransactionAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.account.balance += obj.amount
         obj.balance_after_transaction = obj.account.balance
-        obj.loan_approve = True
         obj.account.save()
         send_transaction_email(
             obj.account.user,
