@@ -20,6 +20,10 @@
       "dest": "/staticfiles/$1"
     },
     {
+      "src": "/static/admin/(.*)",
+      "dest": "/staticfiles/admin/$1"
+    },
+    {
       "src": "/(.*)",
       "dest": "bank_managemnent_django/wsgi.py"
     }

@@ -49,7 +49,6 @@ INSTALLED_APPS = [
 ]
 
 MIDDLEWARE = [
-    "whitenoise.middleware.WhiteNoiseMiddleware",
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -89,7 +88,7 @@ WSGI_APPLICATION = "bank_managemnent_django.wsgi.application"
 #         "NAME": BASE_DIR / "db.sqlite3",
 #     }
 # }
-print(env("DB_URL"))
+
 DATABASES = {
     "default": env.db("DB_URL")
     # "default": {
@@ -147,8 +146,6 @@ STATICFILES_DIRS = [os.path.join(BASE_DIR, "static")]  # Static files in your pr
 STATIC_ROOT = os.path.join(
     BASE_DIR, "staticfiles"
 )  # Static files collected by collectstatic
-
-STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

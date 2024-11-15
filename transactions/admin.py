@@ -18,11 +18,12 @@ class TransactionAdmin(admin.ModelAdmin):
     def save_model(self, request, obj, form, change):
         obj.account.balance += obj.amount
         obj.balance_after_transaction = obj.account.balance
+        obj.loan_approve = True
         obj.account.save()
         send_transaction_email(
             obj.account.user,
             obj.amount,
             "Loan Approval",
-            "transactions/admin_email.html",
+            "emails/admin_email.html",
         )
         super().save_model(request, obj, form, change)
