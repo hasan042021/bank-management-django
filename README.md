@@ -1,5 +1,7 @@
 # NexBank Project
 
+[NexBank Live Website](https://bank-management-django-86l3.vercel.app/)
+
 NexBank is a banking system allowing users to manage their accounts, perform basic banking operations, and request loans.
 
 ## Features
@@ -14,7 +16,7 @@ NexBank is a banking system allowing users to manage their accounts, perform bas
 - Displays all records of user transactions: deposits, withdrawals, and loan requests.
 - **Report functionality**:
   - The report is dynamically updated as users perform transactions.
-  - Information is retrieved from the database, sorted, and filtered by date .
+  - Information is retrieved from the database, sorted, and filtered by date.
 
 ### 3. **Deposit**
 
@@ -51,4 +53,15 @@ NexBank is a banking system allowing users to manage their accounts, perform bas
 ## Additional Notes
 
 - **User Authentication**: All users must be authenticated before performing transactions (e.g., login credentials).
-- **Admin Role**: Admins have control over approving/rejecting loan requests and managing user accounts.
+- **Admin Role**: Admins have control over approving/rejecting loan requests and managing user accounts and database.
+
+### Admin Panel
+
+To access the **Admin Panel**, you must be an authorized user. Use the following credentials to log in:
+
+- **Admin Username**: `admin`
+- **Admin Password**: `1234`
+
+Admin Panel login URL: [Admin Login](https://bank-management-django-86l3.vercel.app/admin/login/?next=%2Fadmin%2F)
+
+
